@@ -69,7 +69,7 @@ LanguageIdentifier.prototype = (function() {
 		}
 	};
 
-	const suspect = (function() {
+	var suspect = (function() {
 
 		var minLength = 1;
 		var maxLength = 4;
@@ -149,7 +149,7 @@ LanguageIdentifier.prototype = (function() {
 			var count = 0;
 
 			for (var i = 0; i < strText.length; i++) {
-				var c = strText[i].toLowerCase();
+				var c = strText.charAt(i).toLowerCase();
 				if (isUnicodeLetter(c)) {
 					word += c;
 					count += addWord(word);
