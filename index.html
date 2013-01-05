@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>Online language identification demo</title>
+	<script src="LanguageIdentifier.js"></script>
+	<script>
+		var languageIdentifier = new LanguageIdentifier();
+		function printlngiso(text){document.getElementById("result").innerHTML = "<b>" + languageIdentifier.identify(text) + "</b>";}
+	</script>
+</head>
+<body>
+	<p>Type something and press <button type="button" onclick="printlngiso(document.getElementById('intext').value);"><noscript> <span style="color:red;">Enable JavaScript ! </span></noscript><span style="color:darkgreen;">Language!</span></button> button.</p>
+	<p><textarea rows="10" cols="55" id="intext">The quick brown fox jumps over the lazy dog</textarea></p>
+	<p id="result"></p>
+<p>
+	<fieldset style="display: inline-block;"><legend>Links</legend>
+		<a href="https://github.com/mazko/jsli" target="_blank" rel="nofollow">Sources</a> |
+		<a href="http://tika.apache.org/1.2/api/org/apache/tika/language/LanguageIdentifier.html" target="_blank" rel="nofollow">Apache Tika LanguageIdentifier</a> |
+		<a href="http://mazko.github.com/jssnowball/" target="_blank">jsSnowball</a> |
+		<a href="mailto:o.mazko@mail.ru?subject=Javascript%20language%20identifier" rel="nofollow" onmouseover="var split = this.href.split('?');  split[0] = split[0].replace('%20%5Bat%5D%20','@'); this.href = split.join('?');">Feedback</a>
+	</fieldset>
+</p>
+<p>
+	<fieldset style="display: inline-block;" id="support_lng"><legend>Languages Supported <a href="http://www.loc.gov/standards/iso639-2/php/code_list.php" target="_blank" rel="nofollow">ISO 639</a></legend>
+		<script>document.getElementById("support_lng").innerHTML += LanguageIdentifier.getSupportLanguages().sort().join(", ");</script>
+	</fieldset>
+</p>
+</body></html>
