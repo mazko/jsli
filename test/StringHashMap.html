@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>QUnit Map tests</title>
+		<link rel="stylesheet" href="qunit/qunit-1.10.0.css">
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<script src="qunit/qunit-1.10.0.js"></script>
+		<script src="../src/StringHashMap.js"></script>
+		<script>
+			test("empty test", function() {
+				var map = new StringHashMap();
+				QUnit.deepEqual(map.count(), 0);
+			});
+
+			test("add test", function() {
+				var map = new StringHashMap();
+				map.setValue("");
+				QUnit.deepEqual(map.count(), 1);
+				map.setValue("foo");
+				QUnit.deepEqual(map.count(), 2);
+			});
+
+			test("get test", function() {
+				var map = new StringHashMap();
+				map.setValue("", "Wow!");
+				QUnit.deepEqual(map.getValue(""), "Wow!");
+				map.setValue("foo", "bar");
+				QUnit.deepEqual(map.getValue(""), "Wow!");
+				QUnit.deepEqual(map.getValue("foo"), "bar");
+			});
+
+			test("contains test", function() {
+				var map = new StringHashMap();
+				QUnit.deepEqual(false, map.containsKey(""));
+				map.setValue("");
+				QUnit.deepEqual(true, map.containsKey(""));
+			});
+
+			test("unique set test", function() {
+				var map = new StringHashMap();
+				map.setValue("");
+				map.setValue("", "Wow!");
+				QUnit.deepEqual(map.count(), 1);
+				QUnit.deepEqual(map.getValue(""), "Wow!");
+			});
+
+			test("clear test", function() {
+				var map = new StringHashMap();
+				map.setValue("");
+				QUnit.deepEqual(map.count(), 1);
+				map.clear();
+				QUnit.deepEqual(map.count(), 0);
+			});
+
+			test("hasOwnProperty test", function() {
+				var etalon = {};
+				QUnit.ok(etalon.toString);
+				QUnit.ok(!etalon.toString_Wow);
+				var map = new StringHashMap();
+				QUnit.deepEqual(false, map.containsKey("toString"));
+				QUnit.ok(!map.getValue("toString"));
+				map.setValue("toString", "Wow!");
+				QUnit.deepEqual(true, map.containsKey("toString"));
+				QUnit.deepEqual("Wow!", map.getValue("toString"));
+			});
+
+			test("getKeys test", function() {
+				var map = new StringHashMap();
+				QUnit.deepEqual(map.getKeys(), []);
+				map.setValue("");
+				QUnit.deepEqual(map.getKeys(), [""]);
+				map.setValue("Wow!");
+				QUnit.deepEqual(map.getKeys(), ["", "Wow!"]);
+			});
+
+			test("forEach test", function() {
+				var some_result = [];
+				var map = new StringHashMap();
+				map.forEach(function(key, value) {some_result.push(key); some_result.push(value);});
+				QUnit.deepEqual(some_result, []);
+				map.setValue("");
+				map.setValue("foo");
+				map.forEach(function(key, value) {some_result.push(key); some_result.push(value);});
+				QUnit.deepEqual(some_result, ["", undefined, "foo", undefined]);
+				map.setValue("", "Wow!");
+				map.setValue("foo", "bar");
+				map.forEach(function(key, value) {some_result.push(key); some_result.push(value);});
+				QUnit.deepEqual(some_result, ["", undefined, "foo", undefined, "", "Wow!", "foo", "bar"]);
+			});
+		</script>
+	</body>
+</html>
