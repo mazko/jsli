@@ -67,15 +67,15 @@
 			});
 
 			test("argument ok test", function() {
-				ok(isUnicodeLetter('a')); // ascii
-				ok(isUnicodeLetter('ю')); // rus
-				ok(isUnicodeLetter('ґ')); // ukr
-				ok(isUnicodeLetter('ö')); // ger
-				ok(isUnicodeLetter('թ')); // armenian
-				ok(!isUnicodeLetter('1'));
-				ok(!isUnicodeLetter(' '));
-				ok(!isUnicodeLetter('"'));
-				ok(!isUnicodeLetter("'"));
+				deepEqual(isUnicodeLetter('a'), true); // ascii
+				deepEqual(isUnicodeLetter('ю'), true); // rus
+				deepEqual(isUnicodeLetter('ґ'), true); // ukr
+				deepEqual(isUnicodeLetter('ö'), true); // ger
+				deepEqual(isUnicodeLetter('թ'), true); // armenian
+				deepEqual(isUnicodeLetter('1'), false);
+				deepEqual(isUnicodeLetter(' '), false);
+				deepEqual(isUnicodeLetter('"'), false);
+				deepEqual(isUnicodeLetter("'"), false);
 			});
 
 		</script>
