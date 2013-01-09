@@ -90,6 +90,20 @@
 				map.forEach(function(key, value) {some_result.push(key); some_result.push(value);});
 				QUnit.deepEqual(some_result, ["", undefined, "foo", undefined, "", "Wow!", "foo", "bar"]);
 			});
+
+			test("multiple instances test", function() {
+				var map1 = new StringHashMap();
+				var map2 = new StringHashMap();
+				map1.setValue("");
+				QUnit.deepEqual(map1.getKeys(), [""]);
+				QUnit.deepEqual(map2.getKeys(), []);
+				map2.setValue("Wow!");
+				QUnit.deepEqual(map2.getKeys(), ["Wow!"]);
+				QUnit.deepEqual(map1.getKeys(), [""]);
+				map1.clear();
+				QUnit.deepEqual(map2.getKeys(), ["Wow!"]);
+				QUnit.deepEqual(map1.getKeys(), []);
+			});
 		</script>
 	</body>
 </html>

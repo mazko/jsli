@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>QUnit ProfilingWriter tests</title>
+		<link rel="stylesheet" href="qunit/qunit-1.10.0.css">
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<script src="qunit/qunit-1.10.0.js"></script>
+		<script src="../src/isUnicodeLetter.js"></script>
+		<script src="../src/Tika/ProfilingWriter.js"></script>
+		<script>
+			test("empty test", function() {
+				var ngrams = [];
+				var writer = new ProfilingWriter(function(ngram){ngrams.push(ngram)});
+				QUnit.deepEqual(ngrams, []);
+				writer.write("");
+				writer.write(" \n");
+				writer.close();
+				QUnit.deepEqual(ngrams, []);
+			});
+
+			test("ngrams test", function() {
+				var ngrams = [];
+				var writer = new ProfilingWriter(function(ngram){ngrams.push(ngram)});
+				writer.write(" foo+BAR FooBar\n");
+        			writer.close();
+				QUnit.deepEqual(ngrams, ['_fo', 'foo', 'oo_', '_ba', 'bar', 'ar_', '_fo', 'foo', 'oob', 'oba', 'bar', 'ar_']);
+			});
+
+			test("ngrams bounds single test", function() {
+				var ngrams = [];
+				var writer = new ProfilingWriter(function(ngram){ngrams.push(ngram)});
+				writer.write("f");
+        			writer.close();
+				QUnit.deepEqual(ngrams, ['_f_']);
+			});
+
+			test("ngrams bounds double test", function() {
+				var ngrams = [];
+				var writer = new ProfilingWriter(function(ngram){ngrams.push(ngram)});
+				writer.write("fo");
+        			writer.close();
+				QUnit.deepEqual(ngrams, ['_fo', 'fo_']);
+			});
+		</script>
+	</body>
+</html>
