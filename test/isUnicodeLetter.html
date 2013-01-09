@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>QUnit Map tests</title>
+		<link rel="stylesheet" href="qunit/qunit-1.10.0.css">
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<script src="qunit/qunit-1.10.0.js"></script>
+		<script src="../src/isUnicodeLetter.js"></script>
+		<script>
+			test("invalid argument test", function() {
+				throws(
+					function () {
+        					isUnicodeLetter();
+					}
+				);
+
+				throws(
+					function () {
+        					isUnicodeLetter(0);
+					}
+				);
+
+				throws(
+					function () {
+        					isUnicodeLetter({});
+					}
+				);
+
+				throws(
+					function () {
+        					isUnicodeLetter([]);
+					}
+				);
+
+				throws(
+					function () {
+        					isUnicodeLetter(['a'.charCodeAt(0)]);
+					}
+				);
+
+				throws(
+					function () {
+        					isUnicodeLetter('');
+					}, /Argument length is incorrect, expected: 1, actual: 0/
+				);
+
+				throws(
+					function () {
+        					isUnicodeLetter("");
+					}, /Argument length is incorrect, expected: 1, actual: 0/
+				);
+
+				throws(
+					function () {
+        					isUnicodeLetter('aa');
+					}, /Argument length is incorrect, expected: 1, actual: 2/
+				);
+
+				throws(
+					function () {
+        					isUnicodeLetter("aaa");
+					}, /Argument length is incorrect, expected: 1, actual: 3/
+				);
+			});
+
+			test("argument ok test", function() {
+				ok(isUnicodeLetter('a')); // ascii
+				ok(isUnicodeLetter('ю')); // rus
+				ok(isUnicodeLetter('ґ')); // ukr
+				ok(isUnicodeLetter('ö')); // ger
+				ok(isUnicodeLetter('թ')); // armenian
+				ok(!isUnicodeLetter('1'));
+				ok(!isUnicodeLetter(' '));
+				ok(!isUnicodeLetter('"'));
+				ok(!isUnicodeLetter("'"));
+			});
+
+		</script>
+	</body>
+</html>
