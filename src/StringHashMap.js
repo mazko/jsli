@@ -7,8 +7,8 @@
  * http://www.opensource.org/licenses/bsd-license.html
  */
 
-function StringHashMap() {
-	this.hash = {};
+function StringHashMap(hash) {
+	this.hash = hash || {};
 }
 
 StringHashMap.prototype = {

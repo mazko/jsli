@@ -7,11 +7,16 @@
  * http://www.opensource.org/licenses/bsd-license.html
  */
 
-function LanguageProfile() {
-	var ngrams = new StringHashMap();
-	var totalCount = 0;
+function LanguageProfile(ngrams_hash, count_hash) {
 
-	function GET_NGRAM_LENHTH() {
+	if (ngrams_hash ? !count_hash : count_hash) {
+		throw ("Both 'ngrams_hash' and 'count_hash' must be initialized either none of them");
+	}
+
+	var ngrams = new StringHashMap(ngrams_hash);
+	var totalCount = count_hash || 0;
+
+	function GET_NGRAM_LENGTH() {
 		return 3;
 	}
 
@@ -35,8 +40,8 @@ function LanguageProfile() {
 	this.add = function(ngram, count) {
 		count = count || 1;
 
-		if (GET_NGRAM_LENHTH() != ngram.length) {
-			throw ("Unable to add an ngram of incorrect length: " + ngram.length + " != " + GET_NGRAM_LENHTH());
+		if (GET_NGRAM_LENGTH() != ngram.length) {
+			throw ("Unable to add an ngram of incorrect length: " + ngram.length + " != " + GET_NGRAM_LENGTH());
 		}
 
 		var ncounter = ngrams.getValue(ngram);

@@ -11,6 +11,21 @@
 		<script src="../src/StringHashMap.js"></script>
 		<script src="../src/Tika/LanguageProfile.js"></script>
 		<script>
+			test("constructor arguments test", function() {
+				new LanguageProfile();
+				throws(
+					function () {
+        					new LanguageProfile(true);
+					}, /Both 'ngrams_hash' and 'count_hash' must be initialized either none of them/
+				);
+				throws(
+					function () {
+        					new LanguageProfile(undefined,true);
+					}, /Both 'ngrams_hash' and 'count_hash' must be initialized either none of them/
+				);
+				new LanguageProfile(true,true);
+			});
+
 			test("empty test", function() {
 				var foo = new LanguageProfile();
 				QUnit.deepEqual(foo.getNgramCount("foo"), 0);
@@ -26,6 +41,23 @@
 				QUnit.deepEqual(foo.getNgramsKeys(), ['foo']);
 
 				foo.add("foo", 3);
+				QUnit.deepEqual(foo.getNgramCount("foo"), 4);
+				QUnit.deepEqual(foo.getTotalCount(), 4);
+				QUnit.deepEqual(foo.getNgramsKeys(), ['foo']);
+
+				foo.add("bar", 2);
+				QUnit.deepEqual(foo.getNgramCount("foo"), 4);
+				QUnit.deepEqual(foo.getNgramCount("bar"), 2);
+				QUnit.deepEqual(foo.getTotalCount(), 6);
+				QUnit.deepEqual(foo.getNgramsKeys(), ['foo','bar']);
+			});
+
+			test("constructor hash test", function() {
+				var foo = new LanguageProfile({"foo" : 3}, 3);
+				QUnit.deepEqual(foo.getNgramCount("foo"), 3);
+				QUnit.deepEqual(foo.getTotalCount(), 3);
+				QUnit.deepEqual(foo.getNgramsKeys(), ['foo']);
+				foo.add("foo");
 				QUnit.deepEqual(foo.getNgramCount("foo"), 4);
 				QUnit.deepEqual(foo.getTotalCount(), 4);
 				QUnit.deepEqual(foo.getNgramsKeys(), ['foo']);
