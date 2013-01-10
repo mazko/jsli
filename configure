@@ -1,0 +1,36 @@
+for FILE in ngp/*.ngp
+do
+	LNG=`basename $FILE .ngp`
+	SUM=0
+	for COUNT in $(sed '/^#/d;s/^\S\+\s\+\([0-9]\+\)$/\1/' ngp/$LNG.ngp)
+	do
+        		SUM=`expr $SUM + $COUNT`;
+	done
+	echo $LNG $SUM
+
+	echo "/*!" > src/Tika/Lng/$LNG.js
+	echo " * $LNG addon for LanguageIdentifier v0.2" >> src/Tika/Lng/$LNG.js
+	echo " * http://tika.apache.org/" >> src/Tika/Lng/$LNG.js
+	echo " * https://github.com/mazko/jsli" >> src/Tika/Lng/$LNG.js
+	echo " *" >> src/Tika/Lng/$LNG.js
+	echo " * Copyright `date +'%y.%m.%d'`, Oleg Mazko" >> src/Tika/Lng/$LNG.js
+	echo " * http://www.opensource.org/licenses/bsd-license.html" >> src/Tika/Lng/$LNG.js
+	echo " */" >> src/Tika/Lng/$LNG.js
+	echo "(function() {" >> src/Tika/Lng/$LNG.js
+	echo "var ngrams = {" >> src/Tika/Lng/$LNG.js
+	sed '/^#/d;s/^\(\S\+\)\s\+\([0-9]\+\)$/"\1":\2,/' ngp/$LNG.ngp >> src/Tika/Lng/$LNG.js
+	sed -i '$s/,$//' src/Tika/Lng/$LNG.js
+	echo "}" >> src/Tika/Lng/$LNG.js
+	echo "LanguageIdentifier.addProfile('$LNG', ngrams, $SUM);" >> src/Tika/Lng/$LNG.js
+	echo "})();" >> src/Tika/Lng/$LNG.js
+done
+
+for FILE in ngp/*.ngp
+do
+	LNG=`basename $FILE .ngp`
+	echo "<script src="../src/Tika/Lng/$LNG.js"></script>"
+done
+
+#cat en.test | tr '\n' ' ' | sed 's/"/\\\"/g' > 1
+
+
