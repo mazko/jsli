@@ -44,6 +44,21 @@
         			writer.close();
 				QUnit.deepEqual(ngrams, ['_fo', 'fo_']);
 			});
+
+			test("multiple instances test", function() {
+				var ngrams1 = [];
+				var writer1 = new ProfilingWriter(function(ngram){ngrams1.push(ngram)});
+				writer1.write("fo");
+        			writer1.close();
+
+				var ngrams2 = [];
+				var writer2 = new ProfilingWriter(function(ngram){ngrams2.push(ngram)});
+				writer2.write("f");
+        			writer2.close();
+
+				QUnit.deepEqual(ngrams1, ['_fo', 'fo_']);
+				QUnit.deepEqual(ngrams2, ['_f_']);
+			});
 		</script>
 	</body>
 </html>
