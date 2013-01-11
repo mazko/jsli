@@ -1,3 +1,18 @@
+#make standalone
+
+STANDALONE=lib/LanguageIdentifier.js
+STANDALONE_TEMPLATE=src/Tika/LanguageIdentifier.js
+
+line_begin=`sed -n '/var LanguageIdentifier = (function() {/=' $STANDALONE_TEMPLATE`;	\
+sed -n "1,${line_begin}p" $STANDALONE_TEMPLATE > $STANDALONE;				\
+sed '1,9d' src/StringHashMap.js | sed 's!^!\t!' >> $STANDALONE;				\
+sed '1,9d' src/isUnicodeLetter.js | sed 's!^!\t!' >> $STANDALONE;			\
+sed '1,9d' src/Tika/LanguageProfile.js | sed 's!^!\t!' >> $STANDALONE;			\
+sed '1,9d' src/Tika/ProfilingWriter.js | sed 's!^!\t!' >> $STANDALONE;			\
+sed "1,${line_begin}d" $STANDALONE_TEMPLATE >> $STANDALONE
+
+#generate lng addons
+
 for FILE in ngp/*.ngp
 do
 	LNG=`basename $FILE .ngp`
@@ -20,10 +35,12 @@ do
 	echo "var ngrams = {" >> src/Tika/Lng/$LNG.js
 	sed '/^#/d;s/^\(\S\+\)\s\+\([0-9]\+\)$/"\1":\2,/' ngp/$LNG.ngp >> src/Tika/Lng/$LNG.js
 	sed -i '$s/,$//' src/Tika/Lng/$LNG.js
-	echo "}" >> src/Tika/Lng/$LNG.js
+	echo "};" >> src/Tika/Lng/$LNG.js
 	echo "LanguageIdentifier.addProfile('$LNG', ngrams, $SUM);" >> src/Tika/Lng/$LNG.js
 	echo "})();" >> src/Tika/Lng/$LNG.js
 done
+
+#print how include all addons in html page
 
 for FILE in ngp/*.ngp
 do

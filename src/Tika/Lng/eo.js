@@ -3,7 +3,7 @@
  * http://tika.apache.org/
  * https://github.com/mazko/jsli
  *
- * Copyright 13.01.10, Oleg Mazko
+ * Copyright 13.01.11, Oleg Mazko
  * http://www.opensource.org/licenses/bsd-license.html
  */
 (function() {
@@ -1008,6 +1008,6 @@ var ngrams = {
 "ada":3837,
 "eva":3817,
 "nge":3801
-}
+};
 LanguageIdentifier.addProfile('eo', ngrams, 16541099);
 })();
