@@ -48,6 +48,44 @@ do
 	echo "<script src="../src/Tika/Lng/$LNG.js"></script>"
 done
 
+#convert multiline text to plain string
 #cat en.test | tr '\n' ' ' | sed 's/"/\\\"/g' > 1
 
-
+#check total count in origin Java Tika
+#LanguageIdentifier.initProfiles();
+#Field field = LanguageIdentifier.class.getDeclaredField("PROFILES");
+#field.setAccessible(true);
+#Map<String, LanguageProfile> profiles = (Map<String, LanguageProfile>)field.get(null);
+#for(Entry<String, LanguageProfile> entry : profiles.entrySet()) {
+#System.out.println(entry.getKey() + ": " + entry.getValue().getCount());
+#}
+#
+#output
+#
+#ro: 18795406
+#ca: 21269815
+#no: 1917111
+#hu: 1838851
+#lt: 21193343
+#th: 1557558
+#de: 6187872
+#fi: 5881942
+#sv: 5330933
+#fr: 6094304
+#be: 294317
+#sl: 15068758
+#sk: 12972964
+#uk: 3846451
+#is: 826407
+#da: 5324113
+#it: 6549432
+#gl: 20288369
+#el: 5581755
+#pt: 5993011
+#pl: 854272
+#eo: 16541099
+#en: 5333054
+#ru: 925340
+#et: 2373307
+#es: 5928555
+#nl: 5865945
