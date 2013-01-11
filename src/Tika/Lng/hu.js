@@ -1010,4 +1010,4 @@ var ngrams = {
 "va_":605
 };
 LanguageIdentifier.addProfile('hu', ngrams, 1838851);
-})();
+}());

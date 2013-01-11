@@ -1010,4 +1010,4 @@ var ngrams = {
 "_x_":1504
 };
 LanguageIdentifier.addProfile('uk', ngrams, 3846451);
-})();
+}());

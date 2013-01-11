@@ -1009,4 +1009,4 @@ var ngrams = {
 "выс":105,
 "нты":105};
 LanguageIdentifier.addProfile('be', ngrams, 294317);
-})();
+}());

@@ -1010,4 +1010,4 @@ var ngrams = {
 "_มค":535
 };
 LanguageIdentifier.addProfile('th', ngrams, 1557558);
-})();
+}());

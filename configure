@@ -37,7 +37,7 @@ do
 	sed -i '$s/,$//' src/Tika/Lng/$LNG.js
 	echo "};" >> src/Tika/Lng/$LNG.js
 	echo "LanguageIdentifier.addProfile('$LNG', ngrams, $SUM);" >> src/Tika/Lng/$LNG.js
-	echo "})();" >> src/Tika/Lng/$LNG.js
+	echo "}());" >> src/Tika/Lng/$LNG.js
 done
 
 #print how include all addons in html page

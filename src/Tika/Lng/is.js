@@ -1010,4 +1010,4 @@ var ngrams = {
 "_ho":228
 };
 LanguageIdentifier.addProfile('is', ngrams, 826407);
-})();
+}());

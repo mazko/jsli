@@ -1010,4 +1010,4 @@ var ngrams = {
 "обс":272
 };
 LanguageIdentifier.addProfile('ru', ngrams, 925340);
-})();
+}());

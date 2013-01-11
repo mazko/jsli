@@ -1010,4 +1010,4 @@ var ngrams = {
 "ævn":964
 };
 LanguageIdentifier.addProfile('da', ngrams, 5324113);
-})();
+}());

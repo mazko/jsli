@@ -1010,4 +1010,4 @@ var ngrams = {
 "väi":640
 };
 LanguageIdentifier.addProfile('et', ngrams, 2373307);
-})();
+}());

@@ -1010,4 +1010,4 @@ var ngrams = {
 "γνώ":1349
 };
 LanguageIdentifier.addProfile('el', ngrams, 5581755);
-})();
+}());

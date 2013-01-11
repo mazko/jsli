@@ -1010,4 +1010,4 @@ var ngrams = {
 "nge":3801
 };
 LanguageIdentifier.addProfile('eo', ngrams, 16541099);
-})();
+}());

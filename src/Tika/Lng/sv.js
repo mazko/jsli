@@ -1010,4 +1010,4 @@ var ngrams = {
 "ton":1086
 };
 LanguageIdentifier.addProfile('sv', ngrams, 5330933);
-})();
+}());

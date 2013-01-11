@@ -1010,4 +1010,4 @@ var ngrams = {
 "nni":266
 };
 LanguageIdentifier.addProfile('pl', ngrams, 854272);
-})();
+}());

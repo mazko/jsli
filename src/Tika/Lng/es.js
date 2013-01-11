@@ -1010,4 +1010,4 @@ var ngrams = {
 "bri":1075
 };
 LanguageIdentifier.addProfile('es', ngrams, 5928555);
-})();
+}());

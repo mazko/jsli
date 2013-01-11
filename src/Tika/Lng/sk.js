@@ -1010,4 +1010,4 @@ var ngrams = {
 "liv":4321
 };
 LanguageIdentifier.addProfile('sk', ngrams, 12972964);
-})();
+}());

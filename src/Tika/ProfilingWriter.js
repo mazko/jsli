@@ -8,23 +8,7 @@
  */
 
 function ProfilingWriter(callback) {
-	var buffer = [ 0, 0, '_'.charCodeAt(0) ];
-	var buffer_pointer = 1;
-
-	this.write = function(strText) {
-		for (var i = 0; i < strText.length; i++) {
-			var character = strText.charAt(i).toLowerCase();
-			if (isUnicodeLetter(character)) {
-				addLetter(character);
-			} else {
-				addSeparator();
-			}
-		}
-	}
-
-	this.close = function() {
-		addSeparator();
-	}
+	var buffer = [ 0, 0, '_'.charCodeAt(0) ], buffer_pointer = 1;
 
 	function addLetter(character) {
         	buffer = buffer.slice(1);
@@ -39,4 +23,20 @@ function ProfilingWriter(callback) {
         	addLetter('_');
         	buffer_pointer = 1;
 	}
+
+	this.write = function(strText) {
+		var i, character;
+		for (i = 0; i < strText.length; i++) {
+			character = strText.charAt(i).toLowerCase();
+			if (isUnicodeLetter(character)) {
+				addLetter(character);
+			} else {
+				addSeparator();
+			}
+		}
+	};
+
+	this.close = function() {
+		addSeparator();
+	};
 }

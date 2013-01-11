@@ -1010,4 +1010,4 @@ var ngrams = {
 "lig":1125
 };
 LanguageIdentifier.addProfile('en', ngrams, 5333054);
-})();
+}());

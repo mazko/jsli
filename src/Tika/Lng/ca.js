@@ -1010,4 +1010,4 @@ var ngrams = {
 "rol":4600
 };
 LanguageIdentifier.addProfile('ca', ngrams, 21269815);
-})();
+}());

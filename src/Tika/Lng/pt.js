@@ -1010,4 +1010,4 @@ var ngrams = {
 "len":1194
 };
 LanguageIdentifier.addProfile('pt', ngrams, 5993011);
-})();
+}());

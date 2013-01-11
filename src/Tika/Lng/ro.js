@@ -1010,4 +1010,4 @@ var ngrams = {
 "alb":4954
 };
 LanguageIdentifier.addProfile('ro', ngrams, 18795406);
-})();
+}());

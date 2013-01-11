@@ -1010,4 +1010,4 @@ var ngrams = {
 "llu":1403
 };
 LanguageIdentifier.addProfile('fi', ngrams, 5881942);
-})();
+}());

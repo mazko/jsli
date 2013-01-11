@@ -1010,4 +1010,4 @@ var ngrams = {
 "lär":1107
 };
 LanguageIdentifier.addProfile('de', ngrams, 6187872);
-})();
+}());

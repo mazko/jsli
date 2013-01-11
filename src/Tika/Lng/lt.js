@@ -1205,4 +1205,4 @@ var ngrams = {
 "tet":5500
 };
 LanguageIdentifier.addProfile('lt', ngrams, 21193343);
-})();
+}());

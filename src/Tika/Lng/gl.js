@@ -1010,4 +1010,4 @@ var ngrams = {
 "aus":4736
 };
 LanguageIdentifier.addProfile('gl', ngrams, 20288369);
-})();
+}());

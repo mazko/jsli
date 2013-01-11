@@ -1010,4 +1010,4 @@ var ngrams = {
 "poj":4402
 };
 LanguageIdentifier.addProfile('sl', ngrams, 15068758);
-})();
+}());

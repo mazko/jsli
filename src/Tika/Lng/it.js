@@ -1010,4 +1010,4 @@ var ngrams = {
 "ipi":1217
 };
 LanguageIdentifier.addProfile('it', ngrams, 6549432);
-})();
+}());

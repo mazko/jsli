@@ -1010,4 +1010,4 @@ var ngrams = {
 "edu":1012
 };
 LanguageIdentifier.addProfile('nl', ngrams, 5865945);
-})();
+}());

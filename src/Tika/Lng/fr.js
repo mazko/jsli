@@ -1010,4 +1010,4 @@ var ngrams = {
 "_x_":1101
 };
 LanguageIdentifier.addProfile('fr', ngrams, 6094304);
-})();
+}());

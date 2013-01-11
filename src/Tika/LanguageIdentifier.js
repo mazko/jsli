@@ -22,12 +22,9 @@ var LanguageIdentifier = (function() {
 				throw ("Bad text ?");
 			}
 
-			var t_profile = new LanguageProfile();
-			var writer = new ProfilingWriter(function(ngram){t_profile.add(ngram)});
+			var t_profile = new LanguageProfile(), writer = new ProfilingWriter(function(ngram){t_profile.add(ngram);}), minLanguage = "unknown", minDistance = 1.0;
 			writer.write(text);
 
-			var minLanguage = "unknown";
-			var minDistance = 1.0;
 			PROFILES.forEach(function (language, profile){
 				var distance = t_profile.distance(profile);
 				if (distance < minDistance) {
@@ -40,7 +37,7 @@ var LanguageIdentifier = (function() {
 				language: minLanguage,
 				distance: minDistance,
 				isReasonablyCertain: minDistance < 0.022
-			}
+			};
 		}
-	}
-})();
+	};
+}());

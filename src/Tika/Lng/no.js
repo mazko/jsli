@@ -1010,4 +1010,4 @@ var ngrams = {
 "små":459
 };
 LanguageIdentifier.addProfile('no', ngrams, 1917111);
-})();
+}());

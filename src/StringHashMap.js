@@ -13,25 +13,33 @@ function StringHashMap(hash) {
 
 StringHashMap.prototype = {
 	containsKey : function(key) {
-		return this.hash.hasOwnProperty(key)
+		return this.hash.hasOwnProperty(key);
 	},
 
 	getKeys : function() {
-		var asKeys = [];
-		for (var sKey in this.hash)
-			asKeys.push(sKey);
+		var asKeys = [], sKey;
+		for (sKey in this.hash) {
+			if (this.hash.hasOwnProperty(sKey)) {
+				asKeys.push(sKey);
+			}
+		}
 
 		return asKeys;
 	},
 
 	forEach : function(callback) {
-		for (var sKey in this.hash)
-			callback(sKey, this.hash[sKey]);
+		var sKey;
+		for (sKey in this.hash) {
+			if (this.hash.hasOwnProperty(sKey)) {
+				callback(sKey, this.hash[sKey]);
+			}
+		}
 	},
 
 	getValue : function(key) {
-		if (this.hash.hasOwnProperty(key))
+		if (this.hash.hasOwnProperty(key)) {
 			return this.hash[key];
+		}
 	},
 
 	setValue : function(key, value) {
@@ -43,9 +51,12 @@ StringHashMap.prototype = {
 	},
 
 	count : function() {
-		var total = 0;
-		for (var sKey in this.hash)
-			total++;
+		var total = 0, sKey;
+		for (sKey in this.hash) {
+			if (this.hash.hasOwnProperty(sKey)) {
+				total++;
+			}
+		}
 		return total;
 	}
 };
