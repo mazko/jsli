@@ -23,21 +23,21 @@ do
 	done
 	echo $LNG $SUM
 
-	echo "/*!" > src/Tika/Lng/$LNG.js
-	echo " * $LNG addon for LanguageIdentifier v0.2" >> src/Tika/Lng/$LNG.js
-	echo " * http://tika.apache.org/" >> src/Tika/Lng/$LNG.js
-	echo " * https://github.com/mazko/jsli" >> src/Tika/Lng/$LNG.js
-	echo " *" >> src/Tika/Lng/$LNG.js
-	echo " * Copyright `date +'%Y.%m.%d'`, Oleg Mazko" >> src/Tika/Lng/$LNG.js
-	echo " * http://www.opensource.org/licenses/bsd-license.html" >> src/Tika/Lng/$LNG.js
-	echo " */" >> src/Tika/Lng/$LNG.js
-	echo "(function() {" >> src/Tika/Lng/$LNG.js
-	echo "var ngrams = {" >> src/Tika/Lng/$LNG.js
-	sed '/^#/d;s/^\(\S\+\)\s\+\([0-9]\+\)$/"\1":\2,/' ngp/$LNG.ngp >> src/Tika/Lng/$LNG.js
-	sed -i '$s/,$//' src/Tika/Lng/$LNG.js
-	echo "};" >> src/Tika/Lng/$LNG.js
-	echo "LanguageIdentifier.addProfile('$LNG', ngrams, $SUM);" >> src/Tika/Lng/$LNG.js
-	echo "}());" >> src/Tika/Lng/$LNG.js
+	echo "/*!" > lib/Lng/$LNG.js
+	echo " * $LNG addon for LanguageIdentifier v0.2" >> lib/Lng/$LNG.js
+	echo " * http://tika.apache.org/" >> lib/Lng/$LNG.js
+	echo " * https://github.com/mazko/jsli" >> lib/Lng/$LNG.js
+	echo " *" >> lib/Lng/$LNG.js
+	echo " * Copyright `date +'%Y.%m.%d'`, Oleg Mazko" >> lib/Lng/$LNG.js
+	echo " * http://www.opensource.org/licenses/bsd-license.html" >> lib/Lng/$LNG.js
+	echo " */" >> lib/Lng/$LNG.js
+	echo "(function() {" >> lib/Lng/$LNG.js
+	echo "var ngrams = {" >> lib/Lng/$LNG.js
+	sed '/^#/d;s/^\(\S\+\)\s\+\([0-9]\+\)$/"\1":\2,/' ngp/$LNG.ngp >> lib/Lng/$LNG.js
+	sed -i '$s/,$//' lib/Lng/$LNG.js
+	echo "};" >> lib/Lng/$LNG.js
+	echo "LanguageIdentifier.addProfile('$LNG', ngrams, $SUM);" >> lib/Lng/$LNG.js
+	echo "}());" >> lib/Lng/$LNG.js
 done
 
 #print how include all addons in html page
@@ -45,7 +45,7 @@ done
 for FILE in ngp/*.ngp
 do
 	LNG=`basename $FILE .ngp`
-	echo "<script src="../src/Tika/Lng/$LNG.js"></script>"
+	echo "<script src="../lib/Lng/$LNG.js"></script>"
 done
 
 #convert multiline text to plain string
