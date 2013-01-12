@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>QUnit LanguageProfile tests</title>
+		<link rel="stylesheet" href="qunit/qunit-1.10.0.css">
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<script src="qunit/qunit-1.10.0.js"></script>
+		<script src="../src/StringHashMap.js"></script>
+		<script src="../src/Tika/LanguageProfile.js"></script>
+		<script>
+			test("constructor arguments test", function() {
+				new LanguageProfile();
+				throws(
+					function () {
+        					new LanguageProfile(true);
+					}, /Both 'ngrams_hash' and 'count_hash' must be initialized either none of them/
+				);
+				throws(
+					function () {
+        					new LanguageProfile(undefined,true);
+					}, /Both 'ngrams_hash' and 'count_hash' must be initialized either none of them/
+				);
+				new LanguageProfile(true,true);
+			});
+
+			test("empty test", function() {
+				var foo = new LanguageProfile();
+				QUnit.deepEqual(foo.getNgramCount("foo"), 0);
+				QUnit.deepEqual(foo.getTotalCount(), 0);
+				QUnit.deepEqual(foo.getNgramsKeys(), []);
+			});
+
+			test("add test", function() {
+				var foo = new LanguageProfile();
+				foo.add("foo");
+				QUnit.deepEqual(foo.getNgramCount("foo"), 1);
+				QUnit.deepEqual(foo.getTotalCount(), 1);
+				QUnit.deepEqual(foo.getNgramsKeys(), ['foo']);
+
+				foo.add("foo", 3);
+				QUnit.deepEqual(foo.getNgramCount("foo"), 4);
+				QUnit.deepEqual(foo.getTotalCount(), 4);
+				QUnit.deepEqual(foo.getNgramsKeys(), ['foo']);
+
+				foo.add("bar", 2);
+				QUnit.deepEqual(foo.getNgramCount("foo"), 4);
+				QUnit.deepEqual(foo.getNgramCount("bar"), 2);
+				QUnit.deepEqual(foo.getTotalCount(), 6);
+				QUnit.deepEqual(foo.getNgramsKeys(), ['foo','bar']);
+			});
+
+			test("constructor hash test", function() {
+				var foo = new LanguageProfile({"foo" : 3}, 3);
+				QUnit.deepEqual(foo.getNgramCount("foo"), 3);
+				QUnit.deepEqual(foo.getTotalCount(), 3);
+				QUnit.deepEqual(foo.getNgramsKeys(), ['foo']);
+				foo.add("foo");
+				QUnit.deepEqual(foo.getNgramCount("foo"), 4);
+				QUnit.deepEqual(foo.getTotalCount(), 4);
+				QUnit.deepEqual(foo.getNgramsKeys(), ['foo']);
+
+				foo.add("bar", 2);
+				QUnit.deepEqual(foo.getNgramCount("foo"), 4);
+				QUnit.deepEqual(foo.getNgramCount("bar"), 2);
+				QUnit.deepEqual(foo.getTotalCount(), 6);
+				QUnit.deepEqual(foo.getNgramsKeys(), ['foo','bar']);
+			});
+
+			test("add argument test", function() {
+				var foo = new LanguageProfile();
+				throws(
+					function () {
+        					foo.add();
+					}
+				);
+				throws(
+					function () {
+        					foo.add("fo");
+					}, /Unable to add an ngram of incorrect length: 2 != 3/
+				);
+				QUnit.deepEqual(foo.getNgramCount("foo"), 0);
+				QUnit.deepEqual(foo.getTotalCount(), 0);
+				QUnit.deepEqual(foo.getNgramsKeys(), []);
+			});
+
+			test("distance test", function() {
+				var foo = new LanguageProfile();
+				QUnit.deepEqual(foo.distance(foo), 0.0);
+				foo.add("foo");
+				QUnit.deepEqual(foo.distance(foo), 0.0);
+				var bar = new LanguageProfile();
+				QUnit.deepEqual(foo.distance(bar), 1.0);
+				bar.add("bar");
+				QUnit.deepEqual(foo.distance(bar), Math.sqrt(2.0));
+				bar.add("bar", 3);
+				QUnit.deepEqual(foo.distance(bar), Math.sqrt(2.0));
+				var foobar = new LanguageProfile();
+				QUnit.deepEqual(foo.distance(foobar), bar.distance(foobar));
+				foobar.add("foo");
+				QUnit.ok(foo.distance(foobar) < bar.distance(foobar));
+				foobar.add("bar");
+				QUnit.deepEqual(foo.distance(foobar), bar.distance(foobar));
+			});
+		</script>
+	</body>
+</html>
