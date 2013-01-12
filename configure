@@ -28,7 +28,7 @@ do
 	echo " * http://tika.apache.org/" >> src/Tika/Lng/$LNG.js
 	echo " * https://github.com/mazko/jsli" >> src/Tika/Lng/$LNG.js
 	echo " *" >> src/Tika/Lng/$LNG.js
-	echo " * Copyright `date +'%y.%m.%d'`, Oleg Mazko" >> src/Tika/Lng/$LNG.js
+	echo " * Copyright `date +'%Y.%m.%d'`, Oleg Mazko" >> src/Tika/Lng/$LNG.js
 	echo " * http://www.opensource.org/licenses/bsd-license.html" >> src/Tika/Lng/$LNG.js
 	echo " */" >> src/Tika/Lng/$LNG.js
 	echo "(function() {" >> src/Tika/Lng/$LNG.js

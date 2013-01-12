@@ -25,6 +25,11 @@ function ProfilingWriter(callback) {
 	}
 
 	this.write = function(strText) {
+
+		if ((!strText && strText !== "") || !strText.substring) {
+			throw ("Bad text ?");
+		}
+
 		var i, character;
 		for (i = 0; i < strText.length; i++) {
 			character = strText.charAt(i).toLowerCase();

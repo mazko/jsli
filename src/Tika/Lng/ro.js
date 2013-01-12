@@ -3,7 +3,7 @@
  * http://tika.apache.org/
  * https://github.com/mazko/jsli
  *
- * Copyright 13.01.11, Oleg Mazko
+ * Copyright 2013.01.12, Oleg Mazko
  * http://www.opensource.org/licenses/bsd-license.html
  */
 (function() {

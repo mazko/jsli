@@ -10,6 +10,7 @@
 		<script src="qunit/qunit-1.10.0.js"></script>
 		<script src="../lib/LanguageIdentifier.js"></script>
 		<script>
+			QUnit.config.reorder = false;
 			test("identify argument test", function() {
 				throws(
 					function () {
@@ -50,21 +51,47 @@
 			});
 
 			test("empty test", function() {
-				QUnit.deepEqual(LanguageIdentifier.identify(''), {language: "unknown", distance: 1.0, isReasonablyCertain: false});
+				QUnit.deepEqual(LanguageIdentifier.identify(''), {language: "unknown", distance: 1.0, isReasonablyCertain: false, sliced: false});
 				QUnit.deepEqual(LanguageIdentifier.getSupportedLanguages(), []);
 			});
 
 			test("identify without addons test", function() {
-				QUnit.deepEqual(LanguageIdentifier.identify('foo'), {language: "unknown", distance: 1.0, isReasonablyCertain: false});
+				QUnit.deepEqual(LanguageIdentifier.identify('foo'), {language: "unknown", distance: 1.0, isReasonablyCertain: false, sliced: false});
 				QUnit.deepEqual(LanguageIdentifier.getSupportedLanguages(), []);
+			});
+
+			test("too much ngrams test", function() {
+				function setAll(a, v) {
+    					var i, n = a.length;
+    					for (i = 0; i < n; ++i) {
+        					a[i] = v;
+    					}
+				}
+				var a = new Array(100000);
+				setAll(a, 'a');
+				a = a.join();
+				QUnit.deepEqual(LanguageIdentifier.identify(a), {language: "unknown", distance: 1.0, isReasonablyCertain: false, sliced: true});
+				QUnit.deepEqual(LanguageIdentifier.getSupportedLanguages(), []);
+
+				LanguageIdentifier.addProfile("en", {}, 1);
+				QUnit.deepEqual(LanguageIdentifier.identify(a), {language: "unknown", distance: 1.0, isReasonablyCertain: false, sliced: true});
+				QUnit.deepEqual(LanguageIdentifier.getSupportedLanguages(), ["en"]);
+			});
+
+			test("identify with addons test", function() {
+				LanguageIdentifier.addProfile("en", {}, 1);
+				QUnit.deepEqual(LanguageIdentifier.identify('a'), {language: "unknown", distance: 1.0, isReasonablyCertain: false, sliced: false});
+				QUnit.deepEqual(LanguageIdentifier.getSupportedLanguages(), ["en"]);
+				var d = Math.sqrt(3/9);
+				QUnit.deepEqual(LanguageIdentifier.identify("foo"), {language: "en", distance: d, isReasonablyCertain: false, sliced: false});
 			});
 
 			test("add profile test", function() {
 				LanguageIdentifier.addProfile("en", {}, 1);
-				QUnit.deepEqual(LanguageIdentifier.identify(''), {language: "en", distance: 0, isReasonablyCertain: true});
+				QUnit.deepEqual(LanguageIdentifier.identify(''), {language: "en", distance: 0, isReasonablyCertain: true, sliced: false});
 				QUnit.deepEqual(LanguageIdentifier.getSupportedLanguages(), ["en"]);
 				LanguageIdentifier.addProfile("de", {}, 0.1);
-				QUnit.deepEqual(LanguageIdentifier.identify(''), {language: "en", distance: 0, isReasonablyCertain: true});
+				QUnit.deepEqual(LanguageIdentifier.identify(''), {language: "en", distance: 0, isReasonablyCertain: true, sliced: false});
 				QUnit.deepEqual(LanguageIdentifier.getSupportedLanguages(), ["en","de"]);
 			});
 		</script>

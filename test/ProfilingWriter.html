@@ -11,6 +11,45 @@
 		<script src="../src/isUnicodeLetter.js"></script>
 		<script src="../src/Tika/ProfilingWriter.js"></script>
 		<script>
+
+			test("write argument test", function() {
+				throws(
+					function () {
+        					new ProfilingWriter().write()
+					}, /Bad text ?/
+				);
+
+				throws(
+					function () {
+        					new ProfilingWriter().write(true)
+					}, /Bad text ?/
+				);
+
+				throws(
+					function () {
+        					new ProfilingWriter().write({})
+					}, /Bad text ?/
+				);
+
+				throws(
+					function () {
+        					new ProfilingWriter().write(1)
+					}, /Bad text ?/
+				);
+
+				throws(
+					function () {
+        					new ProfilingWriter().write([])
+					}, /Bad text ?/
+				);
+
+				throws(
+					function () {
+        					new ProfilingWriter().write(1.1)
+					}, /Bad text ?/
+				);
+			});
+
 			test("empty test", function() {
 				var ngrams = [];
 				var writer = new ProfilingWriter(function(ngram){ngrams.push(ngram)});
@@ -21,7 +60,15 @@
 				QUnit.deepEqual(ngrams, []);
 			});
 
-			test("ngrams test", function() {
+			test("ngrams simple test", function() {
+				var ngrams = [];
+				var writer = new ProfilingWriter(function(ngram){ngrams.push(ngram)});
+				writer.write("foo");
+				writer.close();
+				QUnit.deepEqual(ngrams, ["_fo","foo","oo_"]);
+			});
+
+			test("ngrams complex test", function() {
 				var ngrams = [];
 				var writer = new ProfilingWriter(function(ngram){ngrams.push(ngram)});
 				writer.write(" foo+BAR FooBar\n");
