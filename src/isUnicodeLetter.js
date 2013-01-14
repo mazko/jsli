@@ -9,7 +9,7 @@
 
 function isUnicodeLetter(str) {
 	if (!str.substring) {
-		throw ("Expecting 'STRING' but passed " + str.constructor.name);
+		throw ("Expecting 'STRING' but passed " + Object.prototype.toString.call(str));
 	}
 	if (str.length !== 1) {
 		throw ("Argument length is incorrect, expected: 1, actual: " + str.length);
