@@ -45,6 +45,26 @@ var LanguageIdentifier = (function() {
 				isReasonablyCertain: minDistance < 0.022,
 				sliced: allowedNgramsLeft === 0
 			};
+		},
+		checkAddonsConsistency : function() {
+			PROFILES.forEach(function (language, profile) {
+				var ngrams = profile.getNgramsKeys(), totalNgrams = ngrams.length, ngram, ngramCount, totalCount = profile.getTotalCount(), i;
+				for (i = 0; i < totalNgrams; i++) {
+					ngram = ngrams[i];
+					if (ngram.length !== 3) {
+						throw ("Expecting 3 chars in every ngram, but this one '" + ngram + "' from " + language + " doesn't" );
+					}
+					ngramCount = profile.getNgramCount(ngram);
+					if (isNaN(parseFloat(ngramCount)) || !isFinite(ngramCount) || ngramCount <= 0) {
+						throw ("Expecting count > 0, but found '" + ngramCount + "' in ngram: '" + ngram + "', language: " + language);
+					}
+					totalCount -= ngramCount;
+				}
+
+				if (totalCount) {
+					throw ("Summ of all ngrams count not equals with totalCount: " + profile.getTotalCount());
+				}
+			});
 		}
 	};
 }());

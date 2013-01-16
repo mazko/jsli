@@ -39,6 +39,11 @@
 		<script src=../lib/Lng/uk.js></script>
 
 		<script>
+			test("check addons consistency test", 0, function() {
+				/* Just check for any throw */
+				LanguageIdentifier.checkAddonsConsistency();
+			});
+
 			test("english test", function() {
 				var lng = LanguageIdentifier.identify("The quick brown fox jumps over the lazy dog");
 				QUnit.deepEqual(lng.language, "en");

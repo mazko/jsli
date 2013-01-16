@@ -60,6 +60,11 @@
 				QUnit.deepEqual(LanguageIdentifier.getSupportedLanguages(), []);
 			});
 
+			test("check consistency without addons test", 0, function() {
+				/* Just check for any throw */
+				LanguageIdentifier.checkAddonsConsistency();
+			});
+
 			test("too much ngrams test", function() {
 				function setAll(a, v) {
     					var i, n = a.length;
@@ -86,6 +91,41 @@
 				QUnit.deepEqual(LanguageIdentifier.identify("foo"), {language: "en", distance: d, isReasonablyCertain: false, sliced: false});
 			});
 
+			test("check addons consistency test", function() {
+				LanguageIdentifier.addProfile("en", {"foo": 2, "bar": 1}, 3);
+				LanguageIdentifier.checkAddonsConsistency();
+				LanguageIdentifier.addProfile("en", {}, 1);
+				throws(
+					function () {
+        					LanguageIdentifier.checkAddonsConsistency();
+					}, /Summ of all ngrams count not equals with totalCount: 1/
+				);
+				LanguageIdentifier.addProfile("en", {"foo": 3}, 2);
+				throws(
+					function () {
+        					LanguageIdentifier.checkAddonsConsistency();
+					}, /Summ of all ngrams count not equals with totalCount: 2/
+				);
+				LanguageIdentifier.addProfile("en", {"foo": 0}, 2);
+				throws(
+					function () {
+        					LanguageIdentifier.checkAddonsConsistency();
+					}, /Expecting count > 0, but found '0' in ngram: 'foo', language: en/
+				);
+				LanguageIdentifier.addProfile("en", {"foo": "bar"}, 3);
+				throws(
+					function () {
+        					LanguageIdentifier.checkAddonsConsistency();
+					}, /Expecting count > 0, but found 'bar' in ngram: 'foo', language: en/
+				);
+				LanguageIdentifier.addProfile("en", {"foo": 1, "fo": 2}, 3);
+				throws(
+					function () {
+        					LanguageIdentifier.checkAddonsConsistency();
+					}, /Expecting 3 chars in every ngram, but this one 'fo' from en doesn't/
+				);
+			});
+
 			test("add profile test", function() {
 				LanguageIdentifier.addProfile("en", {}, 1);
 				QUnit.deepEqual(LanguageIdentifier.identify(''), {language: "en", distance: 0, isReasonablyCertain: true, sliced: false});
@@ -94,6 +134,7 @@
 				QUnit.deepEqual(LanguageIdentifier.identify(''), {language: "en", distance: 0, isReasonablyCertain: true, sliced: false});
 				QUnit.deepEqual(LanguageIdentifier.getSupportedLanguages(), ["en","de"]);
 			});
+
 		</script>
 	</body>
 </html>
