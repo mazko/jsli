@@ -98,13 +98,13 @@
 				throws(
 					function () {
         					LanguageIdentifier.checkAddonsConsistency();
-					}, /Summ of all ngrams count not equals with totalCount: 1/
+					}, /Summ of all ngrams count for 'en' not equals with totalCount: 1, diff: 1/
 				);
 				LanguageIdentifier.addProfile("en", {"foo": 3}, 2);
 				throws(
 					function () {
         					LanguageIdentifier.checkAddonsConsistency();
-					}, /Summ of all ngrams count not equals with totalCount: 2/
+					}, /Summ of all ngrams count for 'en' not equals with totalCount: 2, diff: -1/
 				);
 				LanguageIdentifier.addProfile("en", {"foo": 0}, 2);
 				throws(

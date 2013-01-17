@@ -33,7 +33,7 @@ do
 	echo " */" >> lib/Lng/$LNG.js
 	echo "(function() {" >> lib/Lng/$LNG.js
 	echo "var ngrams = {" >> lib/Lng/$LNG.js
-	sed '/^#/d;s/^\(\S\+\)\s\+\([0-9]\+\)$/"\1":\2,/' ngp/$LNG.ngp >> lib/Lng/$LNG.js
+	perl -CSD -p -e 's{([^\t\n\x20-\x7E])}{sprintf "\\u%04x", ord $1}eg' -f ngp/$LNG.ngp | sed '/^#/d;s/^\(\S\+\)\s\+\([0-9]\+\)$/"\1":\2,/' >> lib/Lng/$LNG.js
 	sed -i '$s/,$//' lib/Lng/$LNG.js
 	echo "};" >> lib/Lng/$LNG.js
 	echo "LanguageIdentifier.addProfile('$LNG', ngrams, $SUM);" >> lib/Lng/$LNG.js

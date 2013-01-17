@@ -62,7 +62,7 @@ var LanguageIdentifier = (function() {
 				}
 
 				if (totalCount) {
-					throw ("Summ of all ngrams count not equals with totalCount: " + profile.getTotalCount());
+					throw ("Summ of all ngrams count for '" + language + "' not equals with totalCount: " + profile.getTotalCount() + ", diff: " + totalCount);
 				}
 			});
 		}
