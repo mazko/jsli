@@ -32,6 +32,7 @@
 	<script src=lib/Lng/sv.js></script>
 	<script src=lib/Lng/th.js></script>
 	<script src=lib/Lng/uk.js></script>
+	<script src=lib/Lng/tr.js></script>
 
 	<script>
 		function printlngiso(text){var lng = LanguageIdentifier.identify(text); var res = []; for (var sKey in lng) res.push(sKey + ": " + "<i>" + (!isNaN(parseFloat(lng[sKey])) ? Math.round(lng[sKey] * 1000) / 1000 : lng[sKey]) + "</i>"); document.getElementById("result").innerHTML = res.join(" | ");}
