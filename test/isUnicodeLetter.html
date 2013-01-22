@@ -52,18 +52,6 @@
         					isUnicodeLetter("");
 					}, /Argument length is incorrect, expected: 1, actual: 0/
 				);
-
-				throws(
-					function () {
-        					isUnicodeLetter('aa');
-					}, /Argument length is incorrect, expected: 1, actual: 2/
-				);
-
-				throws(
-					function () {
-        					isUnicodeLetter("aaa");
-					}, /Argument length is incorrect, expected: 1, actual: 3/
-				);
 			});
 
 			test("argument ok test", function() {
@@ -72,6 +60,12 @@
 				deepEqual(isUnicodeLetter('ґ'), true); // ukr
 				deepEqual(isUnicodeLetter('ö'), true); // ger
 				deepEqual(isUnicodeLetter('թ'), true); // armenian
+
+				/* http://stackoverflow.com/questions/2357315/does-javas-tolowercase-preserve-original-string-length */
+
+				deepEqual(isUnicodeLetter('İ'), true); // turkish with case mapping not 1:1 char mappings
+				deepEqual(isUnicodeLetter('i̇'), true);
+
 				deepEqual(isUnicodeLetter('1'), false);
 				deepEqual(isUnicodeLetter(' '), false);
 				deepEqual(isUnicodeLetter('"'), false);
