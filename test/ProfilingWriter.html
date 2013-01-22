@@ -76,6 +76,18 @@
 				QUnit.deepEqual(ngrams, ['_fo', 'foo', 'oo_', '_ba', 'bar', 'ar_', '_fo', 'foo', 'oob', 'oba', 'bar', 'ar_']);
 			});
 
+			test("ngrams complex test with not always 1:1 char mappings", function() {
+
+				/* http://stackoverflow.com/questions/2357315/does-javas-tolowercase-preserve-original-string-length */
+				/* http://code.google.com/p/v8/issues/detail?id=2196 */
+
+				var ngrams = [];
+				var writer = new ProfilingWriter(function(ngram){ngrams.push(ngram)});
+				writer.write(" İoo+BAR i̇ooBar\n");
+        			writer.close();
+				QUnit.deepEqual(ngrams, ['_io', 'ioo', 'oo_', '_ba', 'bar', 'ar_', '_i_', '_oo', 'oob', 'oba', 'bar', 'ar_']);
+			});
+
 			test("ngrams bounds single test", function() {
 				var ngrams = [];
 				var writer = new ProfilingWriter(function(ngram){ngrams.push(ngram)});
